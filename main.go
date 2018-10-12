@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	p, err := rpi.OpenPin(11, rpi.OUT)
+	p, err := rpi.OpenPin(17, rpi.OUT)
 	if err != nil {
 		panic(err)
 	}

@@ -28,6 +28,7 @@ func main() {
 			time.Sleep(time.Second * 1)
 			fmt.Println("output low")
 			p.Write(rpi.LOW)
+			time.Sleep(time.Second * 1)
 		}
 	}()
 	s := <-c

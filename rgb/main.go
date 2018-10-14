@@ -13,7 +13,7 @@ func main() {
 	}
 	defer rpio.Close()
 
-	pin := rpio.Pin(19)
+	pin := rpio.Pin(13)
 
 	pin.Mode(rpio.Pwm)
 	pin.Freq(64000)

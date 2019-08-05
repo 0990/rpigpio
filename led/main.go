@@ -14,12 +14,9 @@ func main() {
 		panic(err)
 	}
 	defer func() {
-		fmt.Println("close pin")
 		p.Close()
 	}()
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c)
 	go func() {
 		for {
 			fmt.Println("output high")
@@ -31,6 +28,9 @@ func main() {
 			time.Sleep(time.Second * 1)
 		}
 	}()
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c)
 	s := <-c
 	fmt.Println("Got signal:", s)
 }

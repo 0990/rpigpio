@@ -4,6 +4,7 @@ import (
 	"github.com/stianeikeland/go-rpio"
 	"os"
 	"time"
+	"fmt"
 )
 
 const (
@@ -17,25 +18,31 @@ func main() {
 		os.Exit(1)
 	}
 	defer rpio.Close()
+	pin12:=rpio.Pin(12)
+	pin12.Mode(rpio.Pwm)
+	pin12.Freq(64000)
+	pin12.DutyCycle(255,255)
 
-	pin := rpio.Pin(13)
+	pin := rpio.Pin(19)
 
 	pin.Mode(rpio.Pwm)
 	pin.Freq(64000)
-	pin.DutyCycle(0, 255)
-	time.Sleep(time.Second * 2)
-	pin.DutyCycle(100, 255)
-	time.Sleep(time.Second * 2)
-
-	//for i := 0; i < 5; i++ {
-	//	for i := uint32(0); i < 255; i++ {
-	//		pin.DutyCycle(i, 255)
-	//		time.Sleep(time.Second / 255)
-	//	}
-	//	for i := uint32(255); i > 0; i-- {
-	//		pin.DutyCycle(i, 255)
-	//	}
-	//}
+	pin.DutyCycle(255, 255)
+	time.Sleep(time.Second)
+	pin.Freq(32000)
+	time.Sleep(time.Second)
+	fmt.Println("125")
+	pin.DutyCycle(125,255)
+	time.Sleep(2*time.Second)
+	for i := 0; i < 5; i++ {
+		for i := uint32(0); i < 255; i++ {
+			pin.DutyCycle(i, 255)
+			time.Sleep(time.Second / 255)
+		}
+		for i := uint32(255); i > 0; i-- {
+			pin.DutyCycle(i, 255)
+		}
+	}
 }
 
 func rgb(r, g, b uint32) {
